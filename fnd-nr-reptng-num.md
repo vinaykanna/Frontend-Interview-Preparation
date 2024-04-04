@@ -73,5 +73,3 @@ const result = [];
 
 console.log(result);
 ```
-
-[fnd-nr-reptng-num.md](http://fnd-nr-reptng-num.md/)

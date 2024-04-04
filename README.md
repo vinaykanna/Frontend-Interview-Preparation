@@ -2,19 +2,31 @@
 
 1. [Debouncing](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/debouncing.md)
 2. [Throttling](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/throttling.md)
-
-5. [Create Memoizer Function](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/memoizer.md)
-8. [Implement Custom Iterator](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/custom-iterator.md)
-10. [Array with event listeners](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/array-with-event-listeners.md)
-18. [Method chaining - I](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/method-chaining-1.md)
-18. [Method chaining - II](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/method-chaining-2.md)
-
-
-
-
-3. [Highlight Words in a String](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/hlt-wrds-in-str.md)
-4. [Write an HOF](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/hof.md)
-10. Implement LRU Cache
-11. Implement LFU Cache
-13. Implement Custom Promise
+3. [Create Memoizer Function](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/memoizer.md)
+4. [Implement Custom Iterator](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/custom-iterator.md)
+5. [Array with event listeners](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/array-with-event-listeners.md)
+6. [Method chaining - I](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/method-chaining-1.md)
+7. [Method chaining - II](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/method-chaining-2.md)
+8. [Get object value from string path](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/get-obj-value-str-path.md)
+9. [Set object value from string path](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/set-obj-value-str-path.md)
+10. [Chop array in chunks of given size](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/lru-cache.md)
+11. [Chop string in chunks of given size](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/chop-str.md)
+12. [Aggregate array of objects on the given key](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/aggr-arr-objs-on-key.md)
+13. [Filter array of objects on value or index](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/aggr-arr-objs-on-value-or-index.md)
+14. [Aggregate input values](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/aggr-inpt-vls.md)
+15. [Filter multidimensional array](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/fltr-mltd-arr.md)
+16. [Count element in multidimensional array](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/cnt-elm-in-fltr-mltd-arr.md)
+17. [Fuzzy Search](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/fuzzy-search.md)
+18. [Find mutual friends](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/fnd-mtl-frnds.md)
+19. [Least frequent element in an array](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/lst-frqnt-elm.md)
+20. [Most frequent element in an array](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/mst-frqnt-elm.md)
+21. [Find non-repeating numbers](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/fnd-nr-reptng-num.md)
+22. [Convert HEX to RGB](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/hex-to-rgb.md)
+23. [Convert RGB to HEX](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/rgb-to-hex.md)
+23. [Convert time to 24 hours format](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/conv-time-24.md)
+24. [Convert time to 12 hours format](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/conv-time-12.md)
+24. [Highlight Words in a String](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/hlt-wrds-in-str.md)
+25. [Write an HOF](https://github.com/vinaykanna/Frontend-Interview-Preparation/blob/main/hof.md)
+26. Implement LRU Cache
+27. Implement LFU Cache
 

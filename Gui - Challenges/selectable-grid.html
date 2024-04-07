@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .app {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .wrapper {
+        width: 1000px;
+      }
+      .wrapper h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: 700;
+        color: grey;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 1px;
+        user-select: none;
+      }
+      .grid-item {
+        border: 1px solid black;
+        padding: 10px;
+      }
+      .selected {
+        background-color: red;
+      }
+      .output {
+        font-size: 20px;
+        margin-top: 30px;
+        color: green;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .output span {
+        font-size: 15px;
+        color: red;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="wrapper">
+        <h1>Selectable Grid</h1>
+        <div class="grid"></div>
+        <output class="output">
+          Selected Items: <span>No items selected</span>
+        </output>
+      </div>
+    </div>
+
+    <script>
+      const grid = document.querySelector(".grid");
+      const output = document.querySelector(".output span");
+
+      generateGrid();
+
+      const gridItems = document.querySelectorAll(".grid-item");
+      let selectedStartIndex = null;
+      let selectedEndIndex = null;
+      let mouseDown = false;
+
+      // Efficiently selecting grid items using event delegation
+      grid.addEventListener("mousedown", (event) => {
+        if (event.target.classList.contains("grid-item")) {
+          clearSelection();
+          selectedStartIndex = event.target.dataset.index;
+          mouseDown = true;
+        }
+      });
+
+      grid.addEventListener("mousemove", (event) => {
+        if (event.target.classList.contains("grid-item")) {
+          if (mouseDown) {
+            selectedEndIndex = event.target.dataset.index;
+            clearSelection;
+            renderSelection();
+          }
+        }
+      });
+
+      document.addEventListener("mouseup", () => {
+        mouseDown = false;
+        showOutput();
+      });
+
+      // Core Implementation Functions
+      function generateGrid() {
+        for (let i = 0; i < 100; i++) {
+          const gridItem = document.createElement("div");
+          gridItem.textContent = i + 1;
+          gridItem.classList.add("grid-item");
+          gridItem.setAttribute("data-index", i);
+          grid.appendChild(gridItem);
+        }
+      }
+
+      function clearSelection() {
+        gridItems.forEach((gridItem) => {
+          gridItem.classList.remove("selected");
+        });
+      }
+
+      function renderSelection() {
+        gridItems.forEach((gridItem, index) => {
+          const rowStart = Math.floor(selectedStartIndex / 10);
+          const rowEnd = Math.floor(selectedEndIndex / 10);
+          const colStart = selectedStartIndex % 10;
+          const colEnd = selectedEndIndex % 10;
+
+          if (
+            Math.floor(index / 10) >= Math.min(rowStart, rowEnd) &&
+            Math.floor(index / 10) <= Math.max(rowStart, rowEnd) &&
+            index % 10 >= Math.min(colStart, colEnd) &&
+            index % 10 <= Math.max(colStart, colEnd)
+          ) {
+            gridItem.classList.add("selected");
+          } else {
+            gridItem.classList.remove("selected");
+          }
+        });
+      }
+
+      function showOutput() {
+        const selectedItems = [...gridItems]
+          .filter((gridItem) => {
+            return gridItem.classList.contains("selected");
+          })
+          .map((gridItem) => gridItem.textContent);
+
+        output.textContent = selectedItems.join(", ") || "No items selected";
+      }
+    </script>
+  </body>
+</html>

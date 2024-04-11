@@ -28,4 +28,3 @@
 24. [Highlight Words in a String](hlt-wrds-in-str.md)
 25. [Write an HOF](hof.md)
 25. [Limit function invocations](lmt_fn_invcns.ts)
-

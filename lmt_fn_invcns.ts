@@ -1,7 +1,7 @@
 function limit(fn: (...args: any[]) => any, count: number) {
   let initialCount = 0;
 
-  return function (...args: any[]) {
+  return function inner(...args: any[]) {
     if (initialCount < count) {
       initialCount++;
       return fn(...args);

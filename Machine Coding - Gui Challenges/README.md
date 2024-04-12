@@ -1,7 +1,7 @@
 ## Frontend Interview Preparation
 
 1. [Kanban Board](kanban-board.html)
-2. [Selectable Grid](selectable-grid.html) - [x]
+2. [Selectable Grid](selectable-grid.html)
 3. [Resiziable Columns](resizeable-columns.html)
 4. [File Explorer](file-explorer.html)
 5. [Counter](counter.html)

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto scroll to bottom</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: lightgrey;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: lightgrey;
+      }
+      .container {
+        max-width: 400px;
+        margin: auto;
+        margin-top: 80px;
+      }
+      .title {
+        text-align: center;
+      }
+      .chatbox {
+        border: 1px solid rgba(0, 0, 0, 0.5);
+      }
+      .input_container {
+        display: flex;
+      }
+      .input_container input {
+        flex: 1;
+        border: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.5);
+        outline: none;
+        height: 30px;
+        padding: 0px 10px;
+      }
+      .input_container button {
+        padding: 0px 15px;
+        background-color: black;
+        color: white;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+      }
+      .messages_container {
+        overflow-y: auto;
+        height: 400px;
+        padding: 20px 10px;
+      }
+      .message {
+        display: flex;
+      }
+      .message p {
+        padding: 5px 10px;
+        border-radius: 5px;
+        max-width: 200px;
+        margin-top: 10px;
+      }
+      .incoming_message {
+        justify-content: flex-start;
+      }
+      .incoming_message p {
+        background-color: lightblue;
+      }
+      .outgoing_message {
+        justify-content: flex-end;
+      }
+      .outgoing_message p {
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Chat Box</h1>
+      <div class="chatbox">
+        <div class="messages_container"></div>
+        <form id="chat_form">
+          <div class="input_container">
+            <input type="text" placeholder="Type a message" />
+            <button type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <template id="message_template">
+      <div class="message">
+        <p></p>
+      </div>
+    </template>
+    <script>
+      const messages = [
+        {
+          type: "incoming",
+          message: "Hello",
+        },
+        {
+          type: "outgoing",
+          message: "Hi",
+        },
+        {
+          type: "incoming",
+          message: "How are you?",
+        },
+        {
+          type: "outgoing",
+          message: "I am fine",
+        },
+        {
+          type: "incoming",
+          message: "What about you?",
+        },
+        {
+          type: "outgoing",
+          message: "I am fine too",
+        },
+        {
+          type: "incoming",
+          message: "How is your family?",
+        },
+        {
+          type: "outgoing",
+          message: "They are fine too",
+        },
+        {
+          type: "incoming",
+          message: "Thank you",
+        },
+        {
+          type: "outgoing",
+          message: "Welcome",
+        },
+        {
+          type: "incoming",
+          message: "Bye",
+        },
+      ];
+
+      const messagesContainer = document.querySelector(".messages_container");
+      const messageTemplate = document.querySelector("#message_template");
+      const inputForm = document.querySelector("#chat_form");
+      const inputMessage = document.querySelector(".input_container input");
+
+      // Render initial Messages
+      function getMessageNode(msg) {
+        const messageNode = document.importNode(messageTemplate.content, true);
+        messageNode.querySelector("p").innerText = msg.message;
+        const className =
+          msg.type === "incoming" ? "incoming_message" : "outgoing_message";
+        messageNode.querySelector(".message").classList.add(className);
+
+        return messageNode;
+      }
+
+      messages.forEach((msg) => {
+        const messageNode = getMessageNode(msg);
+        messagesContainer.appendChild(messageNode);
+      });
+
+      // Send Message
+      inputForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const message = inputMessage.value;
+
+        if (!message) return alert("Enter message!");
+
+        const messageNode = getMessageNode({
+          message,
+          type: "outgoing",
+        });
+
+        messagesContainer.appendChild(messageNode);
+
+        // Just to mimic the incoming message
+        setTimeout(() => {
+          const messageNode = getMessageNode({
+            message,
+            type: "incoming",
+          });
+          messagesContainer.appendChild(messageNode);
+        }, 500);
+
+        inputMessage.value = "";
+      });
+
+      // Handle autoscrolling to bottom when new node is added
+      const config = { childList: true, subtree: true };
+
+      messagesContainer.scrollTo({
+        top: messagesContainer.scrollHeight,
+      });
+
+      const observer = new MutationObserver((mutationList) => {
+        for (const mutation of mutationList) {
+          if (
+            mutation.type === "childList" ||
+            mutation.type === "characterData"
+          ) {
+            messagesContainer.scrollTo({
+              top: messagesContainer.scrollHeight,
+              behavior: "smooth",
+            });
+          }
+        }
+      });
+
+      observer.observe(messagesContainer, config);
+    </script>
+  </body>
+</html>

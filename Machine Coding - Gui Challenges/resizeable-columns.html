@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resizeable Columns</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      .resizeable_container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .resizeable_column_left {
+        background-color: red;
+        width: calc(100% / 2 - 5px);
+        height: 100%;
+      }
+      .resizeable_column_right {
+        background-color: green;
+        width: calc(100% / 2 - 5px);
+        height: 100%;
+      }
+      .column_resizer {
+        background-color: blue;
+        height: 100%;
+        width: 10px;
+        cursor: col-resize;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border: 2px dashed black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="resizeable_container">
+      <div class="resizeable_column_left"></div>
+      <div class="column_resizer"></div>
+      <div class="resizeable_column_right"></div>
+    </div>
+
+    <script>
+      const resizer = document.querySelector(".column_resizer");
+      const leftCol = document.querySelector(".resizeable_column_left");
+      const rightCol = document.querySelector(".resizeable_column_right");
+
+      let isMouseDown = false;
+
+      resizer.addEventListener("mousedown", () => {
+        isMouseDown = true;
+      });
+
+      const handleMouseUp = () => {
+        isMouseDown = false;
+      };
+
+      const handleMouseMove = (e) => {
+        if (!isMouseDown) return;
+
+        const resizerWidth = 10;
+        const resizerHalfWidth = resizerWidth / 2;
+        const windowWidth = window.innerWidth;
+        const screenLeft = e.screenX;
+
+        if (screenLeft < resizerHalfWidth) return;
+
+        if (screenLeft > windowWidth - resizerHalfWidth) return;
+
+        const leftColWidth = (screenLeft / windowWidth) * 100;
+        const rightColWidth = 100 - leftColWidth;
+
+        leftCol.style.width = `calc(${leftColWidth}% - 5px)`;
+        rightCol.style.width = `calc(${rightColWidth}% - 5px)`;
+      };
+
+      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("mousemove", handleMouseMove);
+    </script>
+  </body>
+</html>

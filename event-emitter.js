@@ -35,3 +35,29 @@ export default class EventEmitter {
     return !!listeners.length;
   }
 }
+
+const eventEmitter = new EventEmitter();
+
+eventEmitter.on("event", (...args) => {
+  console.log(...args);
+});
+
+eventEmitter
+  .on("event", (...args) => {
+    console.log("subscriber1", ...args);
+  })
+  .on("event", (...args) => {
+    console.log("subscriber2", ...args);
+  });
+
+const subscriber = (...args) => {
+  console.log("subscriber3", ...args);
+};
+
+eventEmitter.on("event", subscriber);
+
+eventEmitter.emit("event", 1, 2, 3);
+
+eventEmitter.off("event", subscriber);
+
+eventEmitter.emit("event", 4, 5, 6);

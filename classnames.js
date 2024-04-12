@@ -30,3 +30,11 @@ export default function classNames(...args) {
 
   return result.join(" ");
 }
+
+const result1 = classNames("a", "b", "c", { d: true, e: false, f: true }, [
+  "g",
+  "h",
+  { i: true, j: false, k: true },
+]);
+
+console.log(result1);

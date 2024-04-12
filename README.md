@@ -15,3 +15,5 @@
 15. [Highlight Words in a String](hlt-wrds-in-str.md)
 16. [Write an HOF](hof.md)
 17. [Limit function invocations](lmt_fn_invcns.ts)
+17. [Event Emitter - I (Observer Pattern) ](event-emitter.js)
+18. [Implement classNames](classnames.js)

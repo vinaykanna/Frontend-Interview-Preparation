@@ -8,3 +8,4 @@
 6. [Countdown Timer](countdown-timer.html)
 7. [Stopwatch](stop-watch.html)
 8. [Auto Scroll To Bottom](auto-scroll-to-bottom.html)
+9. [Grid Lights](grid-lights.html)

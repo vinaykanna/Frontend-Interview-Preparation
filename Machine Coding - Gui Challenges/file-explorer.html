@@ -6,6 +6,11 @@
     <title>File Explorer</title>
 
     <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
       .app {
         min-height: 100vh;
         display: flex;
@@ -14,7 +19,7 @@
         flex-direction: column;
       }
       .wrapper {
-        width: 1000px;
+        width: 600px;
       }
       .wrapper h1 {
         text-align: center;
@@ -23,15 +28,158 @@
         font-weight: 700;
         color: grey;
       }
+      .explorer li {
+        list-style: none;
+        cursor: pointer;
+      }
+      .explorer ul li ul {
+        margin-left: 30px;
+        display: none;
+      }
+      .explorer ul li ul.show {
+        display: block;
+      }
+      .folder .folder_container,
+      .file .file_container {
+        display: inline-flex;
+        font-size: 16px;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+
+      .folder svg,
+      .file svg {
+        width: 20px;
+        height: 20px;
+      }
     </style>
   </head>
   <body>
     <div class="app">
       <div class="wrapper">
         <h1>File Explorer</h1>
+        <div class="explorer"></div>
       </div>
     </div>
 
-    <script></script>
+    <template id="folder_template">
+      <li class="folder">
+        <div class="folder_container">
+          <div class="folder_icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"
+              />
+            </svg>
+          </div>
+          <div class="folder_name"></div>
+        </div>
+      </li>
+    </template>
+    <template id="file_template">
+      <li class="file">
+        <div class="file_container">
+          <div class="file_icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" />
+            </svg>
+          </div>
+          <div class="file_name"></div>
+        </div>
+      </li>
+    </template>
+
+    <script>
+      const data = [
+        {
+          name: "Folder 1",
+          type: "folder",
+          children: [
+            {
+              name: "File 1",
+              type: "file",
+            },
+            {
+              name: "File 2",
+              type: "file",
+            },
+            {
+              name: "Folder 2",
+              type: "folder",
+              children: [
+                {
+                  name: "File 3",
+                  type: "file",
+                },
+                {
+                  name: "File 4",
+                  type: "file",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "Folder 2",
+          type: "folder",
+          children: [
+            {
+              name: "File 5",
+              type: "file",
+            },
+            {
+              name: "File 6",
+              type: "file",
+            },
+          ],
+        },
+        {
+          name: "File 7",
+          type: "file",
+        },
+        {
+          name: "File 8",
+          type: "file",
+        },
+        {
+          name: "File 9",
+          type: "file",
+        },
+      ];
+
+      const explorer = document.querySelector(".explorer");
+      const folderTemplate = document.querySelector("#folder_template");
+      const fileTemplate = document.querySelector("#file_template");
+
+      function renderItems(data = [], parent) {
+        const listItems = document.createElement("ul");
+
+        data.forEach((item) => {
+          const listItem = document.createElement("li");
+          listItem.classList.add(item.type === "file" ? "file" : "folder");
+          listItem.innerText = item.name;
+          listItems.appendChild(listItem);
+
+          if (item.type === "folder" && item.children.length) {
+            renderItems(item.children, listItem);
+          }
+        });
+
+        parent.appendChild(listItems);
+      }
+
+      renderItems(data, explorer);
+
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("folder")) {
+          const nested = e.target.querySelector("ul");
+          nested.classList.toggle("show");
+        }
+      });
+    </script>
   </body>
 </html>

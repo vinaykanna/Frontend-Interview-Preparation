@@ -10,8 +10,6 @@
         min-height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: center;
-        flex-direction: column;
       }
       .wrapper {
         width: 1000px;
@@ -19,9 +17,19 @@
       .wrapper h1 {
         text-align: center;
         margin-bottom: 30px;
-        font-size: 30px;
+        font-size: 50px;
         font-weight: 700;
         color: grey;
+      }
+      .container {
+        display: flex;
+        gap: 50px;
+        justify-content: center;
+      }
+      .container [data-count] {
+        font-size: 100px;
+        font-weight: bold;
+        min-width: 200px;
       }
     </style>
   </head>
@@ -29,9 +37,45 @@
     <div class="app">
       <div class="wrapper">
         <h1>Counter</h1>
+        <div class="container">
+          <div data-count="199" data-offset="5" data-count-speed="150">0</div>
+          <div data-count="78" data-offset="5" data-count-speed="200">0</div>
+          <div data-count="120" data-offset="5" data-count-speed="250">0</div>
+          <div data-count="699" data-offset="5" data-count-speed="60">0</div>
+        </div>
       </div>
     </div>
 
-    <script></script>
+    <script>
+      const COUNT_DEFAULT_OFFSET = 10;
+      const COUNT_DEFAULT_SPEED = 300;
+      const countItems = document.querySelectorAll(".container [data-count]");
+
+      countItems.forEach((countItem, i) => {
+        const count = +countItem.getAttribute("data-count");
+        const countOffset = +countItem.getAttribute("data-offset");
+        const countSpeed = +countItem.getAttribute("data-count-speed");
+
+        let value = 0;
+
+        const intervalId = setInterval(
+          handler,
+          countSpeed || COUNT_DEFAULT_SPEED
+        );
+        function handler() {
+          if (value >= count) {
+            return clearInterval(intervalId);
+          }
+
+          value += countOffset || COUNT_OFFSET;
+
+          if (value > count) {
+            value -= value - count;
+          }
+
+          countItem.innerText = value;
+        }
+      });
+    </script>
   </body>
 </html>

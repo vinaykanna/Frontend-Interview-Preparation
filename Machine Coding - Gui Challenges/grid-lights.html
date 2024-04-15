@@ -13,9 +13,6 @@
         align-items: center;
         flex-direction: column;
       }
-      .wrapper {
-        width: 1000px;
-      }
       .wrapper h1 {
         text-align: center;
         margin-bottom: 30px;
@@ -23,15 +20,74 @@
         font-weight: 700;
         color: grey;
       }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        user-select: none;
+      }
+      .grid_item {
+        border: 1px solid black;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .selected {
+        background-color: green;
+      }
     </style>
   </head>
   <body>
     <div class="app">
       <div class="wrapper">
         <h1>Grid Lights</h1>
+        <div class="grid"></div>
       </div>
     </div>
 
-    <script></script>
+    <script>
+      const grid = document.querySelector(".grid");
+      const gridItemsLength = 9;
+
+      renderGridItems();
+
+      function renderGridItems() {
+        for (let i = 0; i < gridItemsLength; i++) {
+          const gridItem = document.createElement("div");
+          gridItem.classList.add("grid_item");
+          gridItem.innerText = i + 1;
+          grid.appendChild(gridItem);
+        }
+      }
+
+      const gridItems = document.querySelectorAll(".grid_item");
+      const selected = [];
+
+      gridItems.forEach((gridItem, index) => {
+        gridItem.addEventListener("click", () => {
+          if (!selected.includes(index)) {
+            gridItem.classList.add("selected");
+            selected.push(index);
+          }
+
+          if (selected.length === gridItemsLength) {
+            const intervalId = setInterval(handler, 500);
+            function handler() {
+              if (selected.length === 0) {
+                return clearInterval(intervalId);
+              }
+
+              const popped = selected.pop();
+              gridItems[popped].classList.remove("selected");
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>

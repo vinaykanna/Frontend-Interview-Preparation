@@ -86,28 +86,6 @@
     </template>
 
     <script>
-      const leftItems = [
-        "HTML",
-        "CSS",
-        "JS",
-        "React",
-        "Redux",
-        "Node",
-        "MongoDB",
-      ];
-      const rightItems = [
-        "Git",
-        "Github",
-        "Codepen",
-        "Terminal",
-        "Bash",
-        "NPM",
-      ];
-      const selected = {
-        left: [],
-        right: [],
-      };
-
       const itemTemplate = document.querySelector("#item_template");
       const leftContainer = document.querySelector(".left");
       const rightContainer = document.querySelector(".right");
@@ -133,12 +111,27 @@
         parent.appendChild(list);
       }
 
+      const leftItems = [
+        "HTML",
+        "CSS",
+        "JS",
+        "React",
+        "Redux",
+        "Node",
+        "MongoDB",
+      ];
+      const rightItems = [
+        "Git",
+        "Github",
+        "Codepen",
+        "Terminal",
+        "Bash",
+        "NPM",
+      ];
       renderItems(leftContainer, leftItems);
       renderItems(rightContainer, rightItems);
 
       const allItemElems = document.querySelectorAll(".container li");
-      const leftItemElems = document.querySelectorAll(".container .left li");
-      const rightItemElems = document.querySelectorAll(".container .right li");
 
       function disableOrEnableActions() {
         const leftItemElems = document.querySelectorAll(".container .left li");

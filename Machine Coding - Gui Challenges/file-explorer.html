@@ -15,11 +15,10 @@
         min-height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: center;
-        flex-direction: column;
       }
       .wrapper {
         width: 600px;
+        margin-top: 100px;
       }
       .wrapper h1 {
         text-align: center;
@@ -32,11 +31,11 @@
         list-style: none;
         cursor: pointer;
       }
-      .explorer ul li ul {
+      .explorer .folder ul {
         margin-left: 30px;
         display: none;
       }
-      .explorer ul li ul.show {
+      .explorer ul.show {
         display: block;
       }
       .folder .folder_container,
@@ -48,7 +47,6 @@
         margin-bottom: 10px;
         cursor: pointer;
       }
-
       .folder svg,
       .file svg {
         width: 20px;
@@ -158,14 +156,28 @@
       function renderItems(data = [], parent) {
         const listItems = document.createElement("ul");
 
+        console.log({ parent });
+
         data.forEach((item) => {
-          const listItem = document.createElement("li");
-          listItem.classList.add(item.type === "file" ? "file" : "folder");
-          listItem.innerText = item.name;
+          let listItem;
+          let newParent;
+
+          if (item.type === "file") {
+            listItem = document.importNode(fileTemplate.content, true);
+            listItem.querySelector(".file_name").innerText = item.name;
+            newParent = listItem.querySelector(".file");
+          }
+
+          if (item.type === "folder") {
+            listItem = document.importNode(folderTemplate.content, true);
+            listItem.querySelector(".folder_name").innerText = item.name;
+            newParent = listItem.querySelector(".folder");
+          }
+
           listItems.appendChild(listItem);
 
-          if (item.type === "folder" && item.children.length) {
-            renderItems(item.children, listItem);
+          if (item.children?.length) {
+            renderItems(item.children, newParent);
           }
         });
 
@@ -180,6 +192,18 @@
           nested.classList.toggle("show");
         }
       });
+      const folders = document.querySelectorAll(".folder");
+
+      folders.forEach((folder) => {
+        folder
+          .querySelector(".folder_container")
+          .addEventListener("click", (e) => {
+            const nested = folder.querySelector("& > ul");
+            nested.classList.toggle("show");
+          });
+      });
+
+      console.log(explorer.clientHeight);
     </script>
   </body>
 </html>

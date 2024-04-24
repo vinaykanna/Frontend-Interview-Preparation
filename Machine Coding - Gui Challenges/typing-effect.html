@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Effect</title>
+
+    <style>
+      .app {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .text-container {
+        display: flex;
+        align-items: center;
+      }
+      .text-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: 700;
+        color: grey;
+      }
+      #cursor {
+        margin-left: 3px;
+        position: relative;
+        height: 30px;
+        margin-top: -8px;
+      }
+      #cursor::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 2px;
+        background-color: black;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="wrapper">
+        <div class="text-container">
+          <h1 data-text="Lorem ipsum dummy text blabla" id="text"></h1>
+          <span id="cursor"></span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const element = document.querySelector("#text");
+      const text = element.getAttribute("data-text");
+      const cursor = document.querySelector("#cursor");
+      let i = 0;
+      let speed = 100;
+
+      const writeText = () => {
+        if (i < text.length) {
+          element.innerHTML += text[i];
+          i++;
+          cursor.style.display =
+            cursor.style.display === "none" ? "inline" : "none";
+          setTimeout(writeText, speed);
+        } else {
+          cursor.style.display === "none";
+        }
+      };
+
+      window.onload = function () {
+        setTimeout(writeText, speed);
+      };
+    </script>
+  </body>
+</html>

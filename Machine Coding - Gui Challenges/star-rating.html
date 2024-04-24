@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Star Rating</title>
+
+    <style>
+      .app {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .wrapper {
+        max-width: 500px;
+      }
+      .wrapper h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: 700;
+      }
+      .rating_container {
+        display: flex;
+      }
+      .rating_container .star {
+        padding-inline: 5px;
+      }
+      .rating_container .star svg {
+        fill: #ccc;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+      }
+      .rating_container .star.selected svg,
+      .rating_container .star.hovered svg {
+        fill: #ff9800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="wrapper">
+        <h1>Star Rating</h1>
+        <div class="rating_container"></div>
+      </div>
+    </div>
+
+    <template id="star_template">
+      <div class="star">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+          />
+        </svg>
+      </div>
+    </template>
+
+    <script>
+      const ratingContainer = document.querySelector(".rating_container");
+      const starTemplate = document.querySelector("#star_template");
+
+      function renderStars() {
+        for (i = 0; i < 5; i++) {
+          const starEl = document.importNode(starTemplate.content, true);
+          starEl.querySelector(".star").setAttribute("data-index", i);
+          ratingContainer.appendChild(starEl);
+          console.log({ starEl });
+        }
+      }
+
+      renderStars();
+
+      const stars = ratingContainer.querySelectorAll(".star");
+
+      stars.forEach((star, index) => {
+        star.addEventListener("mouseover", () => {
+          [...stars].slice(0, index + 1).forEach((star) => {
+            star.classList.add("hovered");
+          });
+        });
+
+        star.addEventListener("mouseleave", () => {
+          stars.forEach((star) => {
+            star.classList.remove("hovered");
+          });
+        });
+
+        star.addEventListener("click", () => {
+          stars.forEach((star) => {
+            star.classList.remove("selected");
+          });
+
+          [...stars].slice(0, index + 1).forEach((star) => {
+            star.classList.add("selected");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

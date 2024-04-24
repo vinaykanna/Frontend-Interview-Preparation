@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transfer List</title>
+
+    <style>
+      .app {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .wrapper {
+        max-width: 800px;
+      }
+      .wrapper h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: 700;
+        color: grey;
+      }
+      .container {
+        display: flex;
+      }
+      .container li {
+        list-style: none;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+      .container label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 5px;
+      }
+      .container .left,
+      .container .right {
+        min-width: 200px;
+      }
+      .container .left,
+      .container .right,
+      .container .actions {
+        border: 1px solid black;
+      }
+      .container .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        padding: 24px 10px;
+        border-inline: none;
+      }
+      .container .actions button {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="wrapper">
+        <h1>Transfer List</h1>
+        <div class="container">
+          <div class="left"></div>
+          <div class="actions">
+            <button disabled class="move_left">&lt;</button>
+            <button class="move_all_right">&gt;&gt;</button>
+            <button class="move_all_left">&lt;&lt;</button>
+            <button disabled class="move_right">&gt;</button>
+          </div>
+          <div class="right"></div>
+        </div>
+      </div>
+    </div>
+
+    <template id="item_template">
+      <li>
+        <label>
+          <input type="checkbox" />
+          <span>something</span>
+        </label>
+      </li>
+    </template>
+
+    <script>
+      const leftItems = [
+        "HTML",
+        "CSS",
+        "JS",
+        "React",
+        "Redux",
+        "Node",
+        "MongoDB",
+      ];
+      const rightItems = [
+        "Git",
+        "Github",
+        "Codepen",
+        "Terminal",
+        "Bash",
+        "NPM",
+      ];
+      const selected = {
+        left: [],
+        right: [],
+      };
+
+      const itemTemplate = document.querySelector("#item_template");
+      const leftContainer = document.querySelector(".left");
+      const rightContainer = document.querySelector(".right");
+      const actions = document.querySelector(".actions");
+      const moveLeftAction = actions.querySelector(".move_left");
+      const moveAllLeftAction = actions.querySelector(".move_all_left");
+      const moveRightAction = actions.querySelector(".move_right");
+      const moveAllRightAction = actions.querySelector(".move_all_right");
+
+      function renderItems(parent, items) {
+        const list = document.createElement("ul");
+
+        items.forEach((item) => {
+          const listItemFragment = document.importNode(
+            itemTemplate.content,
+            true
+          );
+          const listItem = listItemFragment.querySelector("li");
+          listItem.querySelector("span").innerText = item;
+          list.appendChild(listItem);
+        });
+
+        parent.appendChild(list);
+      }
+
+      renderItems(leftContainer, leftItems);
+      renderItems(rightContainer, rightItems);
+
+      const allItemElems = document.querySelectorAll(".container li");
+      const leftItemElems = document.querySelectorAll(".container .left li");
+      const rightItemElems = document.querySelectorAll(".container .right li");
+
+      function disableOrEnableActions() {
+        const leftItemElems = document.querySelectorAll(".container .left li");
+        const rightItemElems = document.querySelectorAll(
+          ".container .right li"
+        );
+
+        const checkedLeftItems = [...leftItemElems].filter(
+          (item) => item.querySelector("label input").checked
+        );
+        const checkedRightItems = [...rightItemElems].filter(
+          (item) => item.querySelector("label input").checked
+        );
+
+        if (checkedLeftItems.length) {
+          moveRightAction.removeAttribute("disabled");
+        }
+
+        if (!checkedLeftItems.length) {
+          moveRightAction.setAttribute("disabled", "true");
+        }
+
+        if (checkedRightItems.length) {
+          moveLeftAction.removeAttribute("disabled");
+        }
+
+        if (!checkedRightItems.length) {
+          moveLeftAction.setAttribute("disabled", "true");
+        }
+      }
+
+      allItemElems.forEach((item) => {
+        item.querySelector("label input").addEventListener("change", (e) => {
+          disableOrEnableActions();
+        });
+      });
+
+      moveRightAction.addEventListener("click", () => {
+        const leftItemElems = document.querySelectorAll(".container .left li");
+
+        const checkedItems = [...leftItemElems].filter(
+          (item) => item.querySelector("label input").checked
+        );
+
+        checkedItems.forEach((item) => {
+          item.querySelector("label input").checked = false;
+          rightContainer.querySelector("ul").appendChild(item);
+        });
+
+        disableOrEnableActions();
+      });
+
+      moveLeftAction.addEventListener("click", () => {
+        const rightItemElems = document.querySelectorAll(
+          ".container .right li"
+        );
+
+        const checkedItems = [...rightItemElems].filter(
+          (item) => item.querySelector("label input").checked
+        );
+
+        checkedItems.forEach((item) => {
+          item.querySelector("label input").checked = false;
+          leftContainer.querySelector("ul").appendChild(item);
+        });
+
+        disableOrEnableActions();
+      });
+
+      moveAllLeftAction.addEventListener("click", () => {
+        const rightItemElems = document.querySelectorAll(
+          ".container .right li"
+        );
+
+        rightItemElems.forEach((item) => {
+          item.querySelector("label input").checked = false;
+          leftContainer.querySelector("ul").appendChild(item);
+        });
+
+        disableOrEnableActions();
+      });
+
+      moveAllRightAction.addEventListener("click", () => {
+        const leftItemElems = document.querySelectorAll(".container .left li");
+
+        leftItemElems.forEach((item) => {
+          item.querySelector("label input").checked = false;
+          rightContainer.querySelector("ul").appendChild(item);
+        });
+
+        disableOrEnableActions();
+      });
+    </script>
+  </body>
+</html>

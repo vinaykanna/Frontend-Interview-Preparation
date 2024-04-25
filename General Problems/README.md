@@ -13,3 +13,4 @@
 11. [Convert RGB to HEX](rgb-to-hex.md)
 12. [Convert time to 24 hours format](conv-time-24.md)
 13. [Convert time to 12 hours format](conv-time-12.md)
+14. [Consolidating Partitions](cons-partitions.ts)

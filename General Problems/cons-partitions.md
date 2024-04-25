@@ -1,5 +1,5 @@
 There's a computer with a hard drive that's partitioned into several partitions.
-The date needs to be moved around so that the minimum number of partitions are being used.
+The data needs to be moved around so that the minimum number of partitions are being used.
 Given how much space is currently being used on each partition, as well as the total capacity of each, what's the minimum number of partitions needed to hold all the data if it's moved around optimally?
 
 Example:

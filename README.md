@@ -18,3 +18,4 @@
 17. [Event Emitter - I (Observer Pattern) ](event-emitter.js)
 18. [Implement classNames](classnames.js)
 19. [Count Numbers](count-numbers.js)
+20. [Implement minBy()](min-by.ts)

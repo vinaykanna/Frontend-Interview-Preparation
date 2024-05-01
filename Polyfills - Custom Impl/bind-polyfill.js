@@ -1,13 +1,16 @@
-**Implementation - I**
-
-```tsx
-Function.prototype.myBind = function (...args) {
+Function.prototype.myBind = function (context = {}, ...IntialArgs) {
   let functObj = this;
-  let context = args[0];
-  let params = args.slice(1);
+
+  if (typeof functObj !== "function") {
+    throw new Error(functObj + " is not callable");
+  }
+
+  context.fn = functObj;
 
   return function (...args) {
-    functObj.apply(context, [...params, ...args]);
+    const result = context.fn(...IntialArgs, ...args);
+    delete context.fn;
+    return result;
   };
 };
 
@@ -24,4 +27,3 @@ let details = {
 
 let result = travel.myBind(details, "hello");
 result("AP", "TG");
-```

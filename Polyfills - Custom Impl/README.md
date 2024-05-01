@@ -8,6 +8,8 @@
 6. [Polyfill for Object.groupBy()](groupBy-polyfill.md)
 7. [Implement JSON.stringify()](bind-polyfill.md)
 8. [Implement JSON.stringify()](json-stringify.md)
-9. Implement Custom Promise
+9. [Polyfill for Function.prototype.call()](call-polyfill.js)
+10. [Polyfill for Function.prototype.apply()](apply-polyfill.js)
+11. [Polyfill for Function.prototype.bind()](bind-polyfill.js)
 
 

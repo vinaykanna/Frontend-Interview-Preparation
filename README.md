@@ -21,4 +21,5 @@
 20. [Implement minBy()](min-by.ts)
 20. [Implement Mean() - Average](mean.ts)
 21. [Credit card masker](credit-card-masker.md)
+22. [Find the most frequent word in a paragraph](frqnt-wrd-in-pgrph.md)
 

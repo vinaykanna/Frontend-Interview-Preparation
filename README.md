@@ -20,3 +20,5 @@
 19. [Count Numbers](count-numbers.js)
 20. [Implement minBy()](min-by.ts)
 20. [Implement Mean() - Average](mean.ts)
+21. [Credit card masker](credit-card-masker.md)
+

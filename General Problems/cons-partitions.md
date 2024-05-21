@@ -13,7 +13,7 @@ The data can be moved around like so:
 
 output: 2
 
-**Implementation - I**
+**Implementation**
 
 ```tsx
 function consPartitions(used: number[], totalCapacity: number[]) {

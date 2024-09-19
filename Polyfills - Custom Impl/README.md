@@ -11,5 +11,6 @@
 9. [Polyfill for Function.prototype.call()](call-polyfill.js)
 10. [Polyfill for Function.prototype.apply()](apply-polyfill.js)
 11. [Polyfill for Function.prototype.bind()](bind-polyfill.js)
+11. [Polyfill for Promise](promise-polyfill.js)
 
 
